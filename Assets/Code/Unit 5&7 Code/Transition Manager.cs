@@ -51,10 +51,4 @@ public class TransitionManager : MonoBehaviour
 
         Application.Quit();
     }
-
-    public void mortimerTrigger()
-    {
-        StartCoroutine(mortimer());
-    }
-
 }

@@ -4,13 +4,22 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 
-public class OtherVolumeSettings : MonoBehaviour
+public class OptionsMenu : MonoBehaviour
 {
     [SerializeField] private AudioMixer mainMixer;
-    [SerializeField] public Slider _musicSlider, _sfxSlider;
+    [SerializeField] public Slider _masterslider, _musicSlider, _sfxSlider;
     public OtherAudioManager newAudioManager;
     private void Start()
     {
+        if (PlayerPrefs.HasKey("masterVolume"))
+        {
+            LoadMasterVolume();
+        }
+        else
+        {
+            SetMasterVolume();
+        }
+
         if (PlayerPrefs.HasKey("musicVolume"))
         {
             LoadMusicVolume();
@@ -39,6 +48,13 @@ public class OtherVolumeSettings : MonoBehaviour
     {
         newAudioManager.ToggleSFX();
     }
+
+    public void SetMasterVolume()
+    {
+        float volumeMaster = _masterslider.value;
+        mainMixer.SetFloat("master", Mathf.Log10(volumeMaster) * 20);
+        PlayerPrefs.SetFloat("masterVolume", volumeMaster);
+    }
     public void SetMusicVolume()
     {
         float volumeMusic = _musicSlider.value;
@@ -51,6 +67,12 @@ public class OtherVolumeSettings : MonoBehaviour
         float volumeSFX = _sfxSlider.value;
         mainMixer.SetFloat("SFX", Mathf.Log10(volumeSFX) * 20);
         PlayerPrefs.SetFloat("SFXVolume", volumeSFX);
+    }
+
+    private void LoadMasterVolume()
+    {
+        _masterslider.value = PlayerPrefs.GetFloat("masterVolume");
+        SetMasterVolume();
     }
 
     private void LoadMusicVolume()
@@ -67,6 +89,11 @@ public class OtherVolumeSettings : MonoBehaviour
 
     public void backButton()
     {
+        newAudioManager.PlaySFX(newAudioManager.clickButton);
+    }
+    public void SetFullscreen(bool isFullscreen)
+    {
+        Screen.fullScreen = isFullscreen;
         newAudioManager.PlaySFX(newAudioManager.clickButton);
     }
 }

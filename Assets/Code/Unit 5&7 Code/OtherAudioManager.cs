@@ -27,7 +27,12 @@ public class OtherAudioManager : MonoBehaviour
     public AudioClip menuMusic;
     public AudioClip transition;
     public AudioClip clickButton;
-    public AudioClip gameMusic;
+    public AudioClip spaceAmbience;
+    public AudioClip desertAmbience;
+    public AudioClip earthAmbience1;
+    public AudioClip earthAmbience2;
+    public AudioClip lunarAmbience;
+    public AudioClip gunShot;
 
     private void Start()
     {
@@ -36,11 +41,24 @@ public class OtherAudioManager : MonoBehaviour
             musicSource.clip = menuMusic;
             musicSource.Play();
         }
+        else if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+
+        }
+        else if (SceneManager.GetActiveScene().buildIndex == 3)
+        {
+
+        }
+        else if (SceneManager.GetActiveScene().buildIndex == 4)
+        {
+            musicSource.clip = spaceAmbience;
+            musicSource.Play();
+            musicSource.loop = true;
+        }
         else
         {
-            musicSource.clip = gameMusic;
-            musicSource.Play();
-        }              
+            Debug.Log("No Appropriate Scene For Track");
+        }
     }
 
     public void PlaySFX(AudioClip clip)
@@ -61,9 +79,8 @@ public class OtherAudioManager : MonoBehaviour
         musicSource.Stop();
     }
 
-    public void playGameMusic()
+    public void endLoop()
     {
-        musicSource.clip = gameMusic;
-        musicSource.Play();
+        musicSource.loop = false;
     }
 }

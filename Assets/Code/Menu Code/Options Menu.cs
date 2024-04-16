@@ -9,6 +9,7 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField] private AudioMixer mainMixer;
     [SerializeField] public Slider _masterslider, _musicSlider, _sfxSlider;
     public OtherAudioManager newAudioManager;
+    public TransitionManager transitionManager;
     private void Start()
     {
         if (PlayerPrefs.HasKey("masterVolume"))
@@ -95,5 +96,11 @@ public class OptionsMenu : MonoBehaviour
     {
         Screen.fullScreen = isFullscreen;
         newAudioManager.PlaySFX(newAudioManager.clickButton);
+    }
+    public void quitGame()
+    {
+        Debug.Log("QUIT");
+        newAudioManager.PlaySFX(newAudioManager.clickButton);
+        transitionManager.quitGameTrigger();
     }
 }

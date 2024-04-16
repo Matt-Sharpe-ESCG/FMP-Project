@@ -51,4 +51,9 @@ public class TransitionManager : MonoBehaviour
 
         Application.Quit();
     }
+
+    public void playTransition()
+    {
+        animator.SetTrigger("Start");
+    }
 }

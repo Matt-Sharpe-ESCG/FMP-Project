@@ -8,5 +8,17 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Game Scenes/Start Screen.unity
     guid: 411211caabe41de49bdbaa1a23e80c54
+  - enabled: 1
+    path: Assets/Game Scenes/Scene 1 - Earth.unity
+    guid: 7c2a94e1b0fb301488bcef1629792b56
+  - enabled: 1
+    path: Assets/Game Scenes/Scene 2 - Lunar.unity
+    guid: 19ffe326094e7034a924e617f9f869ce
+  - enabled: 1
+    path: Assets/Game Scenes/Scene 3 - Desert.unity
+    guid: ee71f16107a97f14b9303a3d024a6c4a
+  - enabled: 1
+    path: Assets/Game Scenes/Scene 4 - Space.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

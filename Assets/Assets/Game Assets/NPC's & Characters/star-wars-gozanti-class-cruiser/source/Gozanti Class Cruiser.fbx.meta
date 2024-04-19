@@ -3,7 +3,37 @@ guid: cc95d4dc3a097a341a8f9a038ee33440
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BlueEngineGlow
+    second: {fileID: 2100000, guid: 414858b5050fb7047b3adb3b19416306, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Dark
+    second: {fileID: 2100000, guid: 041fd73b45b2fe04cbf2ed0bfa5631e7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ReflectiveGlass
+    second: {fileID: 2100000, guid: a48bee226da35b3469b9730b022b1ee5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ScratchedMetal
+    second: {fileID: 2100000, guid: 882d796534e52684aa9ff84ea78eadea, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ScratchedMetalDark
+    second: {fileID: 2100000, guid: 50a4225bd1fd51241977f7891a930f90, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WhiteLight
+    second: {fileID: 2100000, guid: 0e16e86748a97874682e6ddc27301866, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

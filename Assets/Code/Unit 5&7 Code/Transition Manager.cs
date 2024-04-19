@@ -17,7 +17,7 @@ public class TransitionManager : MonoBehaviour
     }
     IEnumerator playGame(int gameIndex)
     {
-        animator.SetTrigger("Start");
+        animator.SetTrigger("Transition");
 
         yield return new WaitForSeconds(transitionTime);
 
@@ -31,7 +31,7 @@ public class TransitionManager : MonoBehaviour
 
     IEnumerator loadMenu(int gameIndex)
     {
-        animator.SetTrigger("Start");
+        animator.SetTrigger("Transition");
 
         yield return new WaitForSeconds(transitionTime);
 
@@ -45,7 +45,7 @@ public class TransitionManager : MonoBehaviour
 
     IEnumerator quitGame()
     {
-        animator.SetTrigger("Start");
+        animator.SetTrigger("Transition");
 
         yield return new WaitForSeconds(transitionTime);
 
@@ -54,6 +54,6 @@ public class TransitionManager : MonoBehaviour
 
     public void playTransition()
     {
-        animator.SetTrigger("Start");
+        animator.SetTrigger("Transition");
     }
 }

@@ -27,8 +27,11 @@ public class TransitCode : MonoBehaviour
     }
     public void enterSpace()
     {
-
+        transitionManager.playTransition();
+        otherAudioManager.StopMusic();
+        StartCoroutine(enterSpaceZone());
     }
+
     public void enterEarth()
     {
         transitionManager.playTransition();
@@ -57,6 +60,14 @@ public class TransitCode : MonoBehaviour
         SceneManager.LoadScene(2);
 
     }
+
+    IEnumerator enterSpaceZone()
+    {
+        yield return new WaitForSeconds(transitionTime);
+
+        SceneManager.LoadScene(4);
+    }
+
     public void Update()
     {
         if (group.alpha == 0)

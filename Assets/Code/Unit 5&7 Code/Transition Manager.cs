@@ -13,15 +13,15 @@ public class TransitionManager : MonoBehaviour
 
     public void playGameTrigger()
     {
-        StartCoroutine(playGame(SceneManager.GetActiveScene().buildIndex + 1));
+        StartCoroutine(playGame());
     }
-    IEnumerator playGame(int gameIndex)
+    IEnumerator playGame()
     {
         animator.SetTrigger("Transition");
 
         yield return new WaitForSeconds(transitionTime);
 
-        SceneManager.LoadScene(gameIndex);
+        SceneManager.LoadScene(4);
     }
 
     public void loadMainMenu()

@@ -39,6 +39,13 @@ public class TransitCode : MonoBehaviour
         StartCoroutine(enterEarthPlanet());
     }
 
+    public void enterMenu()
+    {
+        transitionManager.playTransition();
+        otherAudioManager.StopMusic();
+        StartCoroutine(enterMenuZone());
+    }
+
     IEnumerator enterDesertPlanet()
     {
         yield return new WaitForSeconds(transitionTime);
@@ -66,6 +73,13 @@ public class TransitCode : MonoBehaviour
         yield return new WaitForSeconds(transitionTime);
 
         SceneManager.LoadScene(4);
+    }
+
+    IEnumerator enterMenuZone()
+    {
+        yield return new WaitForSeconds(transitionTime);
+
+        SceneManager.LoadScene(0);
     }
 
     public void Update()

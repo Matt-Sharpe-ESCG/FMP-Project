@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.0014785795, g: 0.0013591028, b: 0.0012890887, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -701,7 +701,6 @@ GameObject:
   m_Component:
   - component: {fileID: 273589894}
   - component: {fileID: 273589897}
-  - component: {fileID: 273589896}
   - component: {fileID: 273589895}
   m_Layer: 5
   m_Name: Destination 3 - Miragea
@@ -749,12 +748,12 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 2
+  m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 0, g: 0.9960785, b: 0, a: 1}
+    m_HighlightedColor: {r: 0, g: 0.7735849, b: 0, a: 1}
+    m_PressedColor: {r: 0, g: 0.5566038, b: 0, a: 1}
+    m_SelectedColor: {r: 0, g: 0.9960785, b: 0, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -770,7 +769,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 273589896}
+  m_TargetGraphic: {fileID: 95619868}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -798,36 +797,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &273589896
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 273589893}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300014, guid: 56d84991286850f428b4e7df0cca7380, type: 3}
-  m_Type: 3
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &273589897
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1503,9 +1472,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 4a13f372de20e7b4abfe51352985c925, type: 2}
     - target: {fileID: 7394914933004876654, guid: d148c14616fdac84dbe0842ab8708cf3, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: -4087627327688479622, guid: d148c14616fdac84dbe0842ab8708cf3, type: 3}
+    - target: {fileID: 7394914933004876654, guid: d148c14616fdac84dbe0842ab8708cf3, type: 3}
       propertyPath: 'm_Materials.Array.data[2]'
       value: 
-      objectReference: {fileID: 2100000, guid: 103b76333e0bfe64faa19d241dc2769d, type: 2}
+      objectReference: {fileID: 2100000, guid: d8150abb6a3527d4cbe86123692c2766, type: 2}
+    - target: {fileID: 7394914933004876654, guid: d148c14616fdac84dbe0842ab8708cf3, type: 3}
+      propertyPath: 'm_Materials.Array.data[3]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4a13f372de20e7b4abfe51352985c925, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 65702495048144492, guid: d148c14616fdac84dbe0842ab8708cf3, type: 3}
@@ -1912,6 +1889,7 @@ GameObject:
   m_Component:
   - component: {fileID: 705507995}
   - component: {fileID: 705507994}
+  - component: {fileID: 705507996}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -1996,6 +1974,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &705507996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705507993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!1 &751252988
 GameObject:
   m_ObjectHideFlags: 0
@@ -2511,7 +2512,6 @@ GameObject:
   m_Component:
   - component: {fileID: 910633690}
   - component: {fileID: 910633693}
-  - component: {fileID: 910633692}
   - component: {fileID: 910633691}
   m_Layer: 5
   m_Name: Destination 1 - Gaia Prime
@@ -2559,12 +2559,12 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 2
+  m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 0.082353115, g: 1, b: 0, a: 1}
+    m_HighlightedColor: {r: 0.05849797, g: 0.7075472, b: 0, a: 1}
+    m_PressedColor: {r: 0.058823533, g: 0.48235294, b: 0, a: 1}
+    m_SelectedColor: {r: 0.08235294, g: 1, b: 0, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -2580,52 +2580,22 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 910633692}
+  m_TargetGraphic: {fileID: 1398326459}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 941923995}
+        m_TargetAssemblyTypeName: TransitCode, Assembly-CSharp
+        m_MethodName: enterEarth
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &910633692
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 910633689}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300014, guid: 56d84991286850f428b4e7df0cca7380, type: 3}
-  m_Type: 3
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &910633693
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4149,7 +4119,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1320086958}
   - component: {fileID: 1320086961}
-  - component: {fileID: 1320086960}
   - component: {fileID: 1320086959}
   m_Layer: 5
   m_Name: Destination 2 - Titanis
@@ -4197,12 +4166,12 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 2
+  m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 0, g: 0.9960785, b: 0, a: 1}
+    m_HighlightedColor: {r: 0, g: 0.6981132, b: 0, a: 1}
+    m_PressedColor: {r: 0, g: 0.49056602, b: 0, a: 1}
+    m_SelectedColor: {r: 0, g: 0.9960785, b: 0, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -4218,7 +4187,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 1320086960}
+  m_TargetGraphic: {fileID: 1508638799}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -4234,36 +4203,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1320086960
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1320086957}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300014, guid: 56d84991286850f428b4e7df0cca7380, type: 3}
-  m_Type: 3
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &1320086961
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6346,7 +6285,7 @@ PrefabInstance:
     - target: {fileID: -4892704315981339987, guid: 61ac977d964df5f4dbef4afabc2b5da9, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 90e21864c65f41640a7b6e8975c886ab, type: 2}
+      objectReference: {fileID: 2100000, guid: 8eb7a3ae91db8384cb0dc39cc4814714, type: 2}
     - target: {fileID: -3776704089896390797, guid: 61ac977d964df5f4dbef4afabc2b5da9, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -6382,11 +6321,11 @@ PrefabInstance:
     - target: {fileID: 7024187453248422604, guid: 61ac977d964df5f4dbef4afabc2b5da9, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 90e21864c65f41640a7b6e8975c886ab, type: 2}
+      objectReference: {fileID: 2100000, guid: fbd4b2dcec14c9c49b884647c67de7aa, type: 2}
     - target: {fileID: 7934682302150754638, guid: 61ac977d964df5f4dbef4afabc2b5da9, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 90e21864c65f41640a7b6e8975c886ab, type: 2}
+      objectReference: {fileID: 2100000, guid: fbd4b2dcec14c9c49b884647c67de7aa, type: 2}
     - target: {fileID: 8226724973080940927, guid: 61ac977d964df5f4dbef4afabc2b5da9, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -6751,7 +6690,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 4cfadf74fedc8fd4aaed7d7988a7e24d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: d251ec6e79b4b7c429e5ff954fd8b12f, type: 2}
+      objectReference: {fileID: 2100000, guid: 223300eca8ee9814193700b582703eaa, type: 2}
     - target: {fileID: 919132149155446097, guid: 4cfadf74fedc8fd4aaed7d7988a7e24d, type: 3}
       propertyPath: m_Name
       value: moon

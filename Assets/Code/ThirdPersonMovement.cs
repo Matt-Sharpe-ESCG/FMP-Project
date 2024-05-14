@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class ThirdPersonMovement : MonoBehaviour
 {
-    // Gamer Scene Refrences
+    // Game Scene Refrences
     public CharacterController controller;
     public Transform cam;
     public Transform groundCheckMarker;
+    public GameObject rover;
+    public GameObject player;
+    public Transform firePoint;
+    public GameObject muzzleFlash;
+    public GameObject bullet;
+    public Animator animator;
 
     // Game Asset Values
     public float speed = 6f;
@@ -19,7 +25,8 @@ public class ThirdPersonMovement : MonoBehaviour
 
     float turnSmoothVelocity;
     Vector3 velocity;
-    bool isGrounded; 
+    bool isGrounded;
+    float health = 40f;
 
     void Update()
     {
@@ -54,6 +61,44 @@ public class ThirdPersonMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+
         }
+
+        // Shoot
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            Instantiate(muzzleFlash, firePoint.position, firePoint.rotation);
+            Instantiate(bullet, firePoint.position, firePoint.rotation);
+        }
+
+        //Animation
+        if (Input.GetKey(KeyCode.W))
+        {
+            animator.SetBool("walk", true);
+        }
+        else
+        {
+            animator.SetBool("walk", false);
+        }
+    }
+
+    // Damage
+    public void TakeDamageP(int damage)
+    {
+        health -= damage;
+
+        if (health <= 0) Invoke(nameof(killPlayer), 0.5f);
+    }
+
+    void killPlayer()
+    {
+        StartCoroutine(respawn());
+        GameObject.FindWithTag("player").SetActive(false);
+    }
+
+    IEnumerator respawn()
+    {
+        yield return new WaitForSeconds(5);
+        GameObject.FindWithTag("player").SetActive(false);
     }
 }

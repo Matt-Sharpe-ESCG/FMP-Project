@@ -9,6 +9,10 @@ public class AI_Enemy : MonoBehaviour
     public Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
     public float health;
+    public GameObject bullet;
+    public Transform firePoint;
+    public GameObject muzzleFlash;
+    bulletScript bullets;
 
     public Vector3 walkPoint;
     bool walkPointSet;
@@ -77,6 +81,9 @@ public class AI_Enemy : MonoBehaviour
         {
             ///Attack code here
             Debug.Log("Attack");
+
+            Instantiate(muzzleFlash, firePoint.position, firePoint.rotation);
+
             ///End of attack code
 
             alreadyAttacked = true;

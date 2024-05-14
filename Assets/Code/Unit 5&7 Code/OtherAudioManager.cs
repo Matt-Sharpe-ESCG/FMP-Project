@@ -43,11 +43,15 @@ public class OtherAudioManager : MonoBehaviour
         }
         else if (SceneManager.GetActiveScene().buildIndex == 2)
         {
-
+            musicSource.clip = lunarAmbience;
+            musicSource.Play();
+            musicSource.loop = true;
         }
         else if (SceneManager.GetActiveScene().buildIndex == 3)
         {
-
+            musicSource.clip = desertAmbience;
+            musicSource.Play();
+            musicSource.loop = true;
         }
         else if (SceneManager.GetActiveScene().buildIndex == 4)
         {

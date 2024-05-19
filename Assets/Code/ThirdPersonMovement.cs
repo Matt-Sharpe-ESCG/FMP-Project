@@ -26,10 +26,16 @@ public class ThirdPersonMovement : MonoBehaviour
     float turnSmoothVelocity;
     Vector3 velocity;
     bool isGrounded;
+    bool isAimed;
     float health = 40f;
 
     void Update()
     {
+        // Animation Update
+        animator.SetBool("Fire", false);
+        animator.SetBool("Run", false);
+        animator.SetBool("Jump", false);
+
         // Gravity
         isGrounded = Physics.CheckSphere(groundCheckMarker.position, groundDistance, groundMask);
         velocity.y += gravity * Time.deltaTime;
@@ -61,24 +67,48 @@ public class ThirdPersonMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-
+            animator.SetBool("Jump", true);
         }
 
         // Shoot
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return) && isAimed == true)
         {
+            animator.SetBool("Fire", true);
             Instantiate(muzzleFlash, firePoint.position, firePoint.rotation);
             Instantiate(bullet, firePoint.position, firePoint.rotation);
+        }
+
+        // Aim
+        if (Input.GetKey(KeyCode.Mouse1))
+        {
+            animator.SetBool("Aim", true);
+            isAimed = true;
+        }
+        else
+        {
+            animator.SetBool("Aim", false);
+            isAimed = false;
         }
 
         //Animation
         if (Input.GetKey(KeyCode.W))
         {
-            animator.SetBool("walk", true);
+            animator.SetBool("Walk", true);
         }
         else
         {
-            animator.SetBool("walk", false);
+            animator.SetBool("Walk", false);
+        }
+
+        // Running
+        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift))
+        {
+            speed = speed + 3f;
+            animator.SetBool("Run", true);
+        }
+        else
+        {
+            speed = 6f;
         }
     }
 
@@ -99,6 +129,6 @@ public class ThirdPersonMovement : MonoBehaviour
     IEnumerator respawn()
     {
         yield return new WaitForSeconds(5);
-        GameObject.FindWithTag("player").SetActive(false);
+        GameObject.FindWithTag("player").SetActive(true);
     }
 }

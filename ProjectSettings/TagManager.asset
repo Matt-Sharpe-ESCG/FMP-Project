@@ -6,18 +6,19 @@ TagManager:
   tags:
   - Environment
   - FirePoint
+  - Enemy
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - player
+  - Player
   - Water
   - UI
   - Environment
-  - 
-  - 
-  - 
-  - 
+  - Enemy
+  - EnemyAttackRadius
+  - PlayerAttackRadius
+  - Bullets
   - 
   - 
   - 

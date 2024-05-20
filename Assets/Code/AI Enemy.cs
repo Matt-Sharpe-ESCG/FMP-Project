@@ -5,13 +5,16 @@ using UnityEngine.AI;
 
 public class AI_Enemy : MonoBehaviour
 {
+    [SerializeField] private float _MaxHealth = 50f;
+    private float _currentHealth;
+
     public NavMeshAgent agent;
     public Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
-    public float health;
     public GameObject bullet;
     public Transform firePoint;
     public GameObject muzzleFlash;
+    public Animator animator;
     bulletScript bullets;
 
     public Vector3 walkPoint;
@@ -24,10 +27,15 @@ public class AI_Enemy : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
 
+    [SerializeField] private HealthBar healthBar;
+
     private void Awake()
     {
         player = GameObject.FindWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
+        _currentHealth = _MaxHealth;
+
+        healthBar.UpdateHealthBar(_MaxHealth, _currentHealth);
     }
 
     private void Update()
@@ -38,6 +46,17 @@ public class AI_Enemy : MonoBehaviour
         if (!playerInSightRange && !playerInAttackRange) Patrolling();
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
         if (playerInSightRange && playerInAttackRange) AttackPlayer();
+
+        
+
+        if (Vector3.Magnitude(transform.position) > 0f)
+        {
+            animator.SetBool("move", true);
+        }
+        else
+        {
+            animator.SetBool("move", false);
+        }
     }
 
     private void Patrolling()
@@ -76,13 +95,17 @@ public class AI_Enemy : MonoBehaviour
         agent.SetDestination(transform.position);
 
         transform.LookAt(player);
+        animator.SetBool("move", false);
+        animator.SetBool("Fire", false);
 
         if (!alreadyAttacked)
         {
             ///Attack code here
             Debug.Log("Attack");
-
+            animator.SetBool("Fire",true);
+            
             Instantiate(muzzleFlash, firePoint.position, firePoint.rotation);
+            Instantiate(bullets, firePoint.position, firePoint.rotation);
 
             ///End of attack code
 
@@ -97,9 +120,9 @@ public class AI_Enemy : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        health -= damage;
-
-        if (health <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
+        _currentHealth -= damage;
+        healthBar.UpdateHealthBar(_MaxHealth, _currentHealth);
+        if (_currentHealth <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
     }
     private void DestroyEnemy()
     {

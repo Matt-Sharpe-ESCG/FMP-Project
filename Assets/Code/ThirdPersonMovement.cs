@@ -5,17 +5,20 @@ using UnityEngine;
 public class ThirdPersonMovement : MonoBehaviour
 {
     // Game Scene Refrences
+    [SerializeField] private HealthBar healthBar;
     public CharacterController controller;
     public Transform cam;
     public Transform groundCheckMarker;
-    public GameObject rover;
     public GameObject player;
     public Transform firePoint;
     public GameObject muzzleFlash;
     public GameObject bullet;
     public Animator animator;
+    public Bullet bulletTwo;
 
     // Game Asset Values
+    [SerializeField] private float _MaxHealth = 50f;
+    private float _currentHealth;
     public float speed = 6f;
     public float turnSmoothTime = 0.1f;
     public float gravity = -9.81f;
@@ -27,7 +30,12 @@ public class ThirdPersonMovement : MonoBehaviour
     Vector3 velocity;
     bool isGrounded;
     bool isAimed;
-    float health = 40f;
+    private void Awake()
+    {
+        _currentHealth = _MaxHealth;
+
+        healthBar.UpdateHealthBar(_MaxHealth, _currentHealth);
+    }
 
     void Update()
     {
@@ -70,14 +78,6 @@ public class ThirdPersonMovement : MonoBehaviour
             animator.SetBool("Jump", true);
         }
 
-        // Shoot
-        if (Input.GetKeyDown(KeyCode.Return) && isAimed == true)
-        {
-            animator.SetBool("Fire", true);
-            Instantiate(muzzleFlash, firePoint.position, firePoint.rotation);
-            Instantiate(bullet, firePoint.position, firePoint.rotation);
-        }
-
         // Aim
         if (Input.GetKey(KeyCode.Mouse1))
         {
@@ -90,8 +90,33 @@ public class ThirdPersonMovement : MonoBehaviour
             isAimed = false;
         }
 
+        //Static Fire
+        if (isAimed && Input.GetKey(KeyCode.Mouse0))
+        {
+            animator.SetBool("Fire", true);
+            Instantiate(muzzleFlash, firePoint.transform.position, firePoint.transform.rotation);
+            Instantiate(bullet, firePoint.transform.position, firePoint.transform.rotation);
+            
+        }
+        else
+        {
+            animator.SetBool("Fire", false);
+        }
+
+        // Moving Fire
+        if (Input.GetKey(KeyCode.Mouse0) && velocity.x > 0f)
+        {
+            animator.SetBool("Walk Fire", true);
+            Instantiate(muzzleFlash, transform.position, Quaternion.identity);
+            Instantiate(bullet, firePoint.transform.position, Quaternion.identity);
+        }
+        else
+        {
+            animator.SetBool("Walk Fire", false);
+        }
+
         //Animation
-        if (Input.GetKey(KeyCode.W))
+        if (direction.magnitude >= 0.1f)
         {
             animator.SetBool("Walk", true);
         }
@@ -103,7 +128,7 @@ public class ThirdPersonMovement : MonoBehaviour
         // Running
         if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift))
         {
-            speed = speed + 3f;
+            speed = 8f;
             animator.SetBool("Run", true);
         }
         else
@@ -115,9 +140,9 @@ public class ThirdPersonMovement : MonoBehaviour
     // Damage
     public void TakeDamageP(int damage)
     {
-        health -= damage;
-
-        if (health <= 0) Invoke(nameof(killPlayer), 0.5f);
+        _currentHealth -= damage;
+        healthBar.UpdateHealthBar(_MaxHealth, _currentHealth);
+        if (_currentHealth <= 0) Invoke(nameof(killPlayer), 0.5f);
     }
 
     void killPlayer()

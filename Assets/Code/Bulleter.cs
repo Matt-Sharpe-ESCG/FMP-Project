@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
     [RequireComponent(typeof(Rigidbody))]
-public class Bullet : MonoBehaviour
+public class Bulleter : MonoBehaviour
 {
     private int ObjectsPenetrated;
         
@@ -11,7 +11,7 @@ public class Bullet : MonoBehaviour
 
     [field: SerializeField] public Vector3 SpawnVelocity { get; private set; }
 
-    public delegate void CollisionEvent(Bullet Bullet, Collision Collision, int ObjectsPenetrated);
+    public delegate void CollisionEvent(Bulleter Bulleter, Collision Collision, int ObjectsPenetrated);
 
     public event CollisionEvent OnCollision;
 
@@ -39,7 +39,7 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        OnCollision?.Invoke(this, collision, ObjectsPenetrated);
+        OnCollision?.Invoke(this,collision,ObjectsPenetrated);
         ObjectsPenetrated++;
     }
 

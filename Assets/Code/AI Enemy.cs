@@ -135,7 +135,7 @@ public class AI_Enemy : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Bullet")
+        if (collision.gameObject.tag == "Bullets")
         {
             animator.SetBool("Hit", true);
             TakeDamage(5);

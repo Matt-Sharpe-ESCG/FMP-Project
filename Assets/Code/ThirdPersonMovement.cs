@@ -122,13 +122,17 @@ public class ThirdPersonMovement : MonoBehaviour
     {
         _currentHealth -= damage;
         healthBar.UpdateHealthBar(_MaxHealth, _currentHealth);
-        if (_currentHealth <= 0) Invoke(nameof(killPlayer), 0.5f);
+        if (_currentHealth == 0)
+        {
+            killPlayer();
+        }
     }
 
     void killPlayer()
     {
-        StartCoroutine(respawn());
-        GameObject.FindWithTag("player").SetActive(false);
+        gameObject.SetActive(false);
+        animator.SetBool("Death", true);
+        speed = 0f;
     }
 
     IEnumerator respawn()
@@ -150,12 +154,12 @@ public class ThirdPersonMovement : MonoBehaviour
     // Collision Variable
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Mine")
+        if (collision.gameObject.tag == "Mines")
         {
             animator.SetBool("Mine Hit", true);
             StartCoroutine(respawn());
         }
-        else if (collision.gameObject.tag == "Bullet")
+        else if (collision.gameObject.tag == "Bullets")
         {
             animator.SetBool("Hit", true);
             TakeDamageP(5);

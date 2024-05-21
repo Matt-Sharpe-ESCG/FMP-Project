@@ -7,7 +7,6 @@ public class AI_Enemy : MonoBehaviour
 {
     [SerializeField] private float _MaxHealth = 50f;
     private float _currentHealth;
-
     public NavMeshAgent agent;
     public Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
@@ -15,17 +14,15 @@ public class AI_Enemy : MonoBehaviour
     public Transform firePoint;
     public GameObject muzzleFlash;
     public Animator animator;
-    bulletScript bullets;
-
+    public Rigidbody bulletRB;
     public Vector3 walkPoint;
     bool walkPointSet;
     public float walkPointRange;
-
     public float timeBetweenAttacks;
     bool alreadyAttacked;
-
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
+    public float bulletSpeed;
 
     [SerializeField] private HealthBar healthBar;
 
@@ -57,6 +54,8 @@ public class AI_Enemy : MonoBehaviour
         {
             animator.SetBool("move", false);
         }
+
+        animator.SetBool("Hit", false);
     }
 
     private void Patrolling()
@@ -95,7 +94,6 @@ public class AI_Enemy : MonoBehaviour
         agent.SetDestination(transform.position);
 
         transform.LookAt(player);
-        animator.SetBool("move", false);
         animator.SetBool("Fire", false);
 
         if (!alreadyAttacked)
@@ -103,9 +101,10 @@ public class AI_Enemy : MonoBehaviour
             ///Attack code here
             Debug.Log("Attack");
             animator.SetBool("Fire",true);
-            
-            Instantiate(muzzleFlash, firePoint.position, firePoint.rotation);
-            Instantiate(bullets, firePoint.position, firePoint.rotation);
+            animator.SetBool("move", false);
+
+            Instantiate(muzzleFlash, firePoint.transform.position, firePoint.transform.rotation);
+            Fire();
 
             ///End of attack code
 
@@ -127,6 +126,20 @@ public class AI_Enemy : MonoBehaviour
     private void DestroyEnemy()
     {
         Destroy(gameObject);
+    }
+
+    void Fire()
+    {
+        Rigidbody bulletClone = (Rigidbody)Instantiate(bulletRB, firePoint.transform.position, firePoint.transform.rotation);
+        bulletClone.velocity = firePoint.transform.forward * bulletSpeed;
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Bullet")
+        {
+            animator.SetBool("Hit", true);
+            TakeDamage(5);
+        }
     }
 }
 

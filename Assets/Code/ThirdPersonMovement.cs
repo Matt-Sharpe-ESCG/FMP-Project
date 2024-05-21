@@ -13,17 +13,18 @@ public class ThirdPersonMovement : MonoBehaviour
     public Transform firePoint;
     public GameObject muzzleFlash;
     public GameObject bullet;
+    public Rigidbody bulletRB;
     public Animator animator;
-    public Bullet bulletTwo;
 
     // Game Asset Values
-    [SerializeField] private float _MaxHealth = 50f;
+    [SerializeField] private float _MaxHealth = 100f;
     private float _currentHealth;
-    public float speed = 6f;
+    public float speed = 10f;
     public float turnSmoothTime = 0.1f;
     public float gravity = -9.81f;
     public float groundDistance = 0.4f;
     public float jumpHeight = 3f;
+    public float bulletSpeed = 10;
     public LayerMask groundMask;
 
     float turnSmoothVelocity;
@@ -43,6 +44,9 @@ public class ThirdPersonMovement : MonoBehaviour
         animator.SetBool("Fire", false);
         animator.SetBool("Run", false);
         animator.SetBool("Jump", false);
+        animator.SetBool("Mine Hit", false);
+        animator.SetBool("Stand", false);
+        animator.SetBool("Hit", false);
 
         // Gravity
         isGrounded = Physics.CheckSphere(groundCheckMarker.position, groundDistance, groundMask);
@@ -72,7 +76,7 @@ public class ThirdPersonMovement : MonoBehaviour
         }
 
         // Jumping
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetButtonDown("Jump"))
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             animator.SetBool("Jump", true);
@@ -95,24 +99,11 @@ public class ThirdPersonMovement : MonoBehaviour
         {
             animator.SetBool("Fire", true);
             Instantiate(muzzleFlash, firePoint.transform.position, firePoint.transform.rotation);
-            Instantiate(bullet, firePoint.transform.position, firePoint.transform.rotation);
-            
+            Fire();
         }
         else
         {
             animator.SetBool("Fire", false);
-        }
-
-        // Moving Fire
-        if (Input.GetKey(KeyCode.Mouse0) && velocity.x > 0f)
-        {
-            animator.SetBool("Walk Fire", true);
-            Instantiate(muzzleFlash, transform.position, Quaternion.identity);
-            Instantiate(bullet, firePoint.transform.position, Quaternion.identity);
-        }
-        else
-        {
-            animator.SetBool("Walk Fire", false);
         }
 
         //Animation
@@ -124,20 +115,9 @@ public class ThirdPersonMovement : MonoBehaviour
         {
             animator.SetBool("Walk", false);
         }
-
-        // Running
-        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift))
-        {
-            speed = 8f;
-            animator.SetBool("Run", true);
-        }
-        else
-        {
-            speed = 6f;
-        }
     }
 
-    // Damage
+    // Damage, Death & Respawn
     public void TakeDamageP(int damage)
     {
         _currentHealth -= damage;
@@ -155,5 +135,30 @@ public class ThirdPersonMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(5);
         GameObject.FindWithTag("player").SetActive(true);
+        animator.SetBool("Stand", true);
+        yield return new WaitForSeconds(1);
+        StopCoroutine(respawn());
+    }
+
+    // Weapon Firing
+    void Fire()
+    {
+        Rigidbody bulletClone = (Rigidbody)Instantiate(bulletRB, firePoint.transform.position, firePoint.transform.rotation);
+        bulletClone.velocity = firePoint.transform.forward * bulletSpeed;
+    }
+
+    // Collision Variable
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Mine")
+        {
+            animator.SetBool("Mine Hit", true);
+            StartCoroutine(respawn());
+        }
+        else if (collision.gameObject.tag == "Bullet")
+        {
+            animator.SetBool("Hit", true);
+            TakeDamageP(5);
+        }
     }
 }

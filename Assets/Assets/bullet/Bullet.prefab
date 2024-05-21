@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 6105353496410510731}
   - component: {fileID: 5647521665905518246}
   - component: {fileID: -3200786949878103325}
-  - component: {fileID: 6945840342875762685}
+  - component: {fileID: 8110600907992293347}
   m_Layer: 10
   m_Name: Bullet
-  m_TagString: Untagged
+  m_TagString: Bullets
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -190,7 +190,7 @@ TrailRenderer:
   m_Autodestruct: 1
   m_Emitting: 1
   m_ApplyActiveColorSpace: 0
---- !u!114 &6945840342875762685
+--- !u!114 &8110600907992293347
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -199,11 +199,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6105353496410510732}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa3515efc30313d49a4c7574d4698771, type: 3}
+  m_Script: {fileID: 11500000, guid: 042f18cb175ef994c8b8a13d98d9587d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <SpawnLocation>k__BackingField: {x: 0, y: 0, z: 0}
-  <SpawnVelocity>k__BackingField: {x: 0, y: 0, z: 0}
+  RB: {fileID: 6105353496410510731}
+  bulletSpeed: 20
+  velocity: {x: 0, y: 0, z: 0}
+  decayTimer: 1
 --- !u!1001 &6658419543172306622
 PrefabInstance:
   m_ObjectHideFlags: 0

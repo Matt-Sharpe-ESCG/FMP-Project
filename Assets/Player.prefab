@@ -377,13 +377,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3393260319434828413}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8.54, y: 0.77, z: -0}
   m_LocalScale: {x: 7.0062327, y: 7.006236, z: 7.0062327}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 734814943639845630}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5249630069638165313
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,6 +461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7e0611d47ae3a643a52a9662a830981, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthBar: {fileID: 0}
   controller: {fileID: 9016091143193564217}
   cam: {fileID: 0}
   groundCheckMarker: {fileID: 8936818971423658222}
@@ -469,6 +470,8 @@ MonoBehaviour:
   muzzleFlash: {fileID: 1743301284569550, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
   bullet: {fileID: 224294064100122703, guid: 0f8ba4f627940b8459ffe2e10664b0cb, type: 3}
   animator: {fileID: 6844232387247171106}
+  bulletTwo: {fileID: 0}
+  _MaxHealth: 50
   speed: 6
   turnSmoothTime: 0.1
   gravity: -4.405

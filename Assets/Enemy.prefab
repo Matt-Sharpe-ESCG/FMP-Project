@@ -1424,6 +1424,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &2549592267360334294
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5049175978690073607}
+  m_Layer: 7
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5049175978690073607
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2549592267360334294}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071067, y: 0.000000034244295, z: -0.0000000026341775, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8974451164756193537}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2617653779899562697
 GameObject:
   m_ObjectHideFlags: 0
@@ -3912,7 +3943,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 815625488471ee44ba929d904cd8bccc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _MaxHealth: 50
+  _MaxHealth: 100
   agent: {fileID: 5491819743435383931}
   player: {fileID: 2313473707523947223, guid: 124f933a9c4e592459a86d5faff3c020, type: 3}
   whatIsGround:
@@ -3922,9 +3953,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   bullet: {fileID: 6105353496410510732, guid: 36e49d4598fae1946be64a007028b1cd, type: 3}
-  firePoint: {fileID: 8974451164756193537}
+  firePoint: {fileID: 5049175978690073607}
   muzzleFlash: {fileID: 1743301284569550, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
-  animator: {fileID: 0}
+  animator: {fileID: 6223930248390902008}
+  bulletRB: {fileID: 6105353496410510731, guid: 36e49d4598fae1946be64a007028b1cd, type: 3}
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 0
   timeBetweenAttacks: 0
@@ -3932,6 +3964,7 @@ MonoBehaviour:
   attackRange: 0
   playerInSightRange: 0
   playerInAttackRange: 0
+  bulletSpeed: 0
   healthBar: {fileID: 0}
 --- !u!1 &6109270167361477432
 GameObject:
@@ -4536,7 +4569,8 @@ Transform:
   m_LocalPosition: {x: -1.0873728, y: -0.017954677, z: -0.0021223724}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5049175978690073607}
   m_Father: {fileID: 4350176272308081381}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7078215290248762685
@@ -5918,5 +5952,10 @@ Transform:
 --- !u!4 &4938256076097573222 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4881188965066173455, guid: cc14d3729a7bcbc43b37f7599394fdd7, type: 3}
+  m_PrefabInstance: {fileID: 519394158333836649}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &6223930248390902008 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: cc14d3729a7bcbc43b37f7599394fdd7, type: 3}
   m_PrefabInstance: {fileID: 519394158333836649}
   m_PrefabAsset: {fileID: 0}

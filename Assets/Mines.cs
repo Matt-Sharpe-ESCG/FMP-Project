@@ -7,20 +7,21 @@ public class Mines : MonoBehaviour
     public GameObject explosion;
     public ThirdPersonMovement ThirdPM;
     public AI_Enemy Enemy;
+    public Collider Collision;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.tag == "Player")
         {
-            Instantiate(explosion, transform);
-            ThirdPM.TakeDamageP(20);
-            Destroy(explosion);
+            Instantiate(explosion, transform.position, transform.rotation);
+            ThirdPM.TakeDamageP(50);
+            Destroy(gameObject);
         }
         else if (collision.gameObject.CompareTag("Enemy"))
         {
-            Instantiate(explosion, transform);
-            Enemy.TakeDamage(20);
-            Destroy(explosion);
+            Instantiate(explosion, transform.position, transform.rotation);
+            Enemy.TakeDamage(50);
+            Destroy(gameObject);
         }
     }
 }

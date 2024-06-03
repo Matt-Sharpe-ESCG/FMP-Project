@@ -8,6 +8,7 @@ public class OptionsMenu : MonoBehaviour
 {
     [SerializeField] private AudioMixer mainMixer;
     [SerializeField] public Slider _masterslider, _musicSlider, _sfxSlider;
+    [SerializeField] private GameObject crosshair, healthbar, pauseMenuUI;
     public OtherAudioManager newAudioManager;
     public TransitionManager transitionManager;
     private void Start()
@@ -102,5 +103,14 @@ public class OptionsMenu : MonoBehaviour
         Debug.Log("QUIT");
         newAudioManager.PlaySFX(newAudioManager.clickButton);
         transitionManager.quitGameTrigger();
+    }
+
+    public void openMenu()
+    {
+        Debug.Log("Open Menu");
+        newAudioManager.PlaySFX(newAudioManager.clickButton);
+        pauseMenuUI.SetActive(true);
+        healthbar.SetActive(false);
+        crosshair.SetActive(false);
     }
 }

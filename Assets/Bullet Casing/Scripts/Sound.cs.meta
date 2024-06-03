@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: a83fa3e13841d324bb3c8ecbb6dbe374
+timeCreated: 1533666304
+licenseType: Store
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 120111
+  packageName: VFX Bullet Casing
+  packageVersion: 2.0
+  assetPath: Assets/Bullet Casing/Scripts/Sound.cs
+  uploadId: 324426

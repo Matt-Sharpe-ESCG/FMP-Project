@@ -28,11 +28,12 @@ public class OtherAudioManager : MonoBehaviour
     public AudioClip transition;
     public AudioClip clickButton;
     public AudioClip spaceAmbience;
-    public AudioClip desertAmbience;
-    public AudioClip earthAmbience1;
-    public AudioClip earthAmbience2;
     public AudioClip lunarAmbience;
-    public AudioClip gunShot;
+    public AudioClip[] gunShot;
+    public AudioClip[] FootstepAudioClips;
+    public AudioClip landing;
+    public AudioClip mineExplostion;
+    public AudioClip reload;
 
     private void Start()
     {
@@ -44,12 +45,6 @@ public class OtherAudioManager : MonoBehaviour
         else if (SceneManager.GetActiveScene().buildIndex == 2)
         {
             musicSource.clip = lunarAmbience;
-            musicSource.Play();
-            musicSource.loop = true;
-        }
-        else if (SceneManager.GetActiveScene().buildIndex == 3)
-        {
-            musicSource.clip = desertAmbience;
             musicSource.Play();
             musicSource.loop = true;
         }

@@ -10,6 +10,7 @@ public class AI_Enemy : MonoBehaviour
     public NavMeshAgent agent;
     public Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
+    public OtherAudioManager otherAudioManager;
     public GameObject bullet;
     public Transform firePoint;
     public GameObject muzzleFlash;
@@ -104,6 +105,7 @@ public class AI_Enemy : MonoBehaviour
             animator.SetBool("move", false);
 
             Instantiate(muzzleFlash, firePoint.transform.position, firePoint.transform.rotation);
+            otherAudioManager.PlaySFX(otherAudioManager.gunShot[1]);
             Fire();
 
             ///End of attack code
@@ -138,7 +140,7 @@ public class AI_Enemy : MonoBehaviour
         if (collision.gameObject.tag == "Bullets")
         {
             animator.SetBool("Hit", true);
-            TakeDamage(5);
+            TakeDamage(15);
         }
     }
 }

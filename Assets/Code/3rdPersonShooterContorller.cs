@@ -11,24 +11,29 @@ public class ThirdPersonShooterContorller : MonoBehaviour
     [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask();
     [SerializeField] private float normalSensitvity;
     [SerializeField] private float aimSensitvity;
-    [SerializeField] private Transform debugTransform;
     [SerializeField] private Transform pfBulletProjectile;
     [SerializeField] private Transform spawnBulletPosition;
     [SerializeField] private Transform vfxHitEffectSoft;
     [SerializeField] private Transform vfxHitEffectHard;
     [SerializeField] private ParticleSystem cases;
     [SerializeField] private TrailRenderer trail;
-
+    [SerializeField] private Transform casesSpawn;
+    [SerializeField] private float ammoCount;
+    [SerializeField] private HealthBar healthBar;
+    [SerializeField] private float _MaxHealth = 100f;
+    private float _currentHealth;
     private ThirdPersonController thirdPerson;
     private StarterAssetsInputs starterAssetsInputs;
+    public OtherAudioManager newAudioManager;
     private Animator animator;
-    public AudioClip GunShot;
+    private bool isAimed;
 
     private void Awake()
     {
         thirdPerson = GetComponent<ThirdPersonController>();
         starterAssetsInputs = GetComponent<StarterAssetsInputs>();
         animator = GetComponent<Animator>();
+        ammoCount = 16;
     }
 
     private void Update()
@@ -39,13 +44,13 @@ public class ThirdPersonShooterContorller : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
         if (Physics.Raycast(ray, out RaycastHit raycastHit, 999f, aimColliderLayerMask))
         {
-            debugTransform.position = raycastHit.point;
             mouseWorldPosition = raycastHit.point;
             hitTransform = raycastHit.transform;
         }
 
         if (starterAssetsInputs.aim)
         {
+            isAimed = true;
             aimVirtualCamera.gameObject.SetActive(true);
             thirdPerson.SetSensitivity(aimSensitvity);
             thirdPerson.SetRotateOnMove(false);
@@ -63,17 +68,38 @@ public class ThirdPersonShooterContorller : MonoBehaviour
             thirdPerson.SetSensitivity(normalSensitvity);
             thirdPerson.SetRotateOnMove(true);
             animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 0f, Time.deltaTime * 10f));
+            isAimed = false;
         }
 
-        if (starterAssetsInputs.shoot)
+        if (starterAssetsInputs.shoot && isAimed == true && ammoCount > 0)
         {
-            Instantiate(trail, spawnBulletPosition.position, Quaternion.identity);
-            AudioSource.PlayClipAtPoint(GunShot, transform.position);
-            if (hitTransform != null)
-            {
-                Instantiate(vfxHitEffectSoft, hitTransform.position, Quaternion.identity);
-            }        
+            Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;       
+            Instantiate(vfxHitEffectHard, spawnBulletPosition.transform.position, spawnBulletPosition.transform.rotation);
+            Instantiate(pfBulletProjectile, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
+            newAudioManager.PlaySFX(newAudioManager.gunShot[0]);
+            ammoCount = ammoCount - 1;
             starterAssetsInputs.shoot = false;
         }
+
+        if (starterAssetsInputs.reload)
+        {
+            animator.SetBool("Reload", true);
+            ammoCount = 16;
+        }
+    }
+
+    public void TakeDamageP(int damage)
+    {
+        _currentHealth -= damage;
+        healthBar.UpdateHealthBar(_MaxHealth, _currentHealth);
+        if (_currentHealth == 0)
+        {
+            killPlayer();
+        }
+    }
+
+    void killPlayer()
+    {
+        gameObject.SetActive(false);
     }
 }

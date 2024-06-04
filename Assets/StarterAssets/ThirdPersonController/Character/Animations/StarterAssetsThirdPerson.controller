@@ -287,7 +287,7 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: Armed
     m_StateMachine: {fileID: 3438606988547725557}
-    m_Mask: {fileID: 0}
+    m_Mask: {fileID: 31900000, guid: cbfab9aaab44c81438584299b2804c97, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0
@@ -459,7 +459,7 @@ AnimatorStateMachine:
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 50, y: 20, z: 0}
-  m_EntryPosition: {x: 50, y: 120, z: 0}
+  m_EntryPosition: {x: 30, y: 140, z: 0}
   m_ExitPosition: {x: 800, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 7320328106584188612}

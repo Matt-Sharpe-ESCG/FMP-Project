@@ -1,6 +1,8 @@
 ﻿ using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 #endif
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
@@ -14,9 +16,7 @@ namespace StarterAssets
 #endif
     public class ThirdPersonController : MonoBehaviour
     {
-        [SerializeField] private HealthBar healthBar;
-        [SerializeField] private float _MaxHealth = 100f;
-        private float _currentHealth;
+        public OtherAudioManager newAudioManager;
         private OptionsMenu _optionsMenu;
 
         [Header("Player")]
@@ -34,17 +34,17 @@ namespace StarterAssets
         public float SpeedChangeRate = 10.0f;
         public float Sensitivity = 1f;
 
-        public AudioClip LandingAudioClip;
+        /*public AudioClip LandingAudioClip;
 
         public AudioClip[] FootstepAudioClips;
-        [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
+        [Range(0, 1)] public float FootstepAudioVolume = 0.5f;*/
 
         [Space(10)]
         [Tooltip("The height the player can jump")]
-        public float JumpHeight = 1.2f;
+        public float JumpHeight = 2.4f;
 
         [Tooltip("The character uses its own gravity value. The engine default is -9.81f")]
-        public float Gravity = -15.0f;
+        public float Gravity = -4.405f;
 
         [Space(10)]
         [Tooltip("Time required to pass before being able to jump again. Set to 0f to instantly jump again")]
@@ -100,6 +100,8 @@ namespace StarterAssets
 
         // UI Elements
         public GameObject pauseMenu;
+        public GameObject crosshair;
+        public GameObject healthBAR;
 
         // animation IDs
         private int _animIDSpeed;
@@ -116,6 +118,7 @@ namespace StarterAssets
         private StarterAssetsInputs _input;
         private GameObject _mainCamera;
         private bool _rotateOnMove = true;
+        private bool isPaused;
 
         private const float _threshold = 0.01f;
 
@@ -166,15 +169,19 @@ namespace StarterAssets
         private void Update()
         {
             _hasAnimator = TryGetComponent(out _animator);
+            _input.cursorLocked = true;
 
             JumpAndGravity();
             GroundedCheck();
             Move();
 
-            if (_input.pause == true)
+            if (Input.GetKeyDown(KeyCode.P))
             {
-                PauseGame();
+                pauseMenu.SetActive(true);
+                crosshair.SetActive(false);
+                healthBAR.SetActive(false);
             }
+
         }
 
         private void LateUpdate()
@@ -392,10 +399,11 @@ namespace StarterAssets
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
-                if (FootstepAudioClips.Length > 0)
+                if (newAudioManager.FootstepAudioClips.Length > 0)
                 {
-                    var index = Random.Range(0, FootstepAudioClips.Length);
-                    AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
+                    var index = Random.Range(0, newAudioManager.FootstepAudioClips.Length);
+                    // AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
+                    newAudioManager.PlaySFX(newAudioManager.FootstepAudioClips[index]);
                 }
             }
         }
@@ -404,7 +412,8 @@ namespace StarterAssets
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
-                AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
+                //AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
+                newAudioManager.PlaySFX(newAudioManager.landing);
             }
         }
 
@@ -416,26 +425,6 @@ namespace StarterAssets
         public void SetRotateOnMove(bool newRotateOnMove)
         {
             _rotateOnMove = newRotateOnMove;
-        }
-
-        public void TakeDamageP(int damage)
-        {
-            _currentHealth -= damage;
-            healthBar.UpdateHealthBar(_MaxHealth, _currentHealth);
-            if (_currentHealth == 0)
-            {
-                killPlayer();
-            }
-        }
-
-        void killPlayer()
-        {
-            gameObject.SetActive(false);
-        }
-
-        void PauseGame()
-        {
-            _optionsMenu.openMenu();
         }
     }
 }

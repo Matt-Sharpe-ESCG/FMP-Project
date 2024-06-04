@@ -14,8 +14,6 @@ public class HealthBar : MonoBehaviour
         _cam = Camera.main;
     }
 
-
-
     public void UpdateHealthBar(float maxHealth, float currentHealth)
     {
         _healthbarSprite.fillAmount = currentHealth / maxHealth;

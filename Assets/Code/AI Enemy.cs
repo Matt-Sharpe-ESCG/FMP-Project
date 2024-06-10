@@ -17,6 +17,11 @@ public class AI_Enemy : MonoBehaviour
     public Animator animator;
     public Rigidbody bulletRB;
     public Vector3 walkPoint;
+    public Transform groundCheckMarker;
+    public float gravity = -9.81f;
+    public LayerMask groundMask;
+    Vector3 velocity;
+    public float groundDistance = 0.4f;
     bool walkPointSet;
     public float walkPointRange;
     public float timeBetweenAttacks;
@@ -44,8 +49,6 @@ public class AI_Enemy : MonoBehaviour
         if (!playerInSightRange && !playerInAttackRange) Patrolling();
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
         if (playerInSightRange && playerInAttackRange) AttackPlayer();
-
-        
 
         if (Vector3.Magnitude(transform.position) > 0f)
         {
@@ -79,6 +82,7 @@ public class AI_Enemy : MonoBehaviour
         float randomX = Random.Range(-walkPointRange, walkPointRange);
 
         walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
+        transform.rotation = Quaternion.LookRotation(walkPoint);
 
         if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround))
             walkPointSet = true;

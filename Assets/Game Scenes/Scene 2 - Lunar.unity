@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.0014785795, g: 0.0013591028, b: 0.0012890887, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -29314,6 +29314,10 @@ PrefabInstance:
       propertyPath: newAudioManager
       value: 
       objectReference: {fileID: 690288602}
+    - target: {fileID: 4416926081852918490, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
+      propertyPath: GroundLayers.m_Bits
+      value: 65
+      objectReference: {fileID: 0}
     - target: {fileID: 4523139366846529165, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -29538,7 +29542,7 @@ MonoBehaviour:
   cases: {fileID: 198995447496872438, guid: 522b470e09ed8b8488c6b8788f9d6206, type: 3}
   trail: {fileID: 5825598839176180730, guid: ab6b6e7ef7015674db9f3fbb6d118338, type: 3}
   casesSpawn: {fileID: 1491206657}
-  ammoCount: 16
+  magezineSize: 16
   healthBar: {fileID: 722268918}
   _MaxHealth: 100
   newAudioManager: {fileID: 690288602}
@@ -51261,6 +51265,10 @@ PrefabInstance:
     - target: {fileID: 322027386143344965, guid: b566276a551d69f47aa25081465cc56f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1958479276456843633, guid: b566276a551d69f47aa25081465cc56f, type: 3}
+      propertyPath: m_WalkableMask
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4684282845524724905, guid: b566276a551d69f47aa25081465cc56f, type: 3}
       propertyPath: player

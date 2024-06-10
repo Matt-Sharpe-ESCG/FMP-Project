@@ -11955,6 +11955,7 @@ GameObject:
   - component: {fileID: 4684282845524724905}
   - component: {fileID: 1042777566240196356}
   - component: {fileID: 4077519020902672259}
+  - component: {fileID: 708928961443095355}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: Enemy
@@ -11999,7 +12000,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 0
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 1
   m_ObstacleAvoidanceType: 1
 --- !u!114 &4684282845524724905
 MonoBehaviour:
@@ -12072,6 +12073,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd3693532f434114692ef444d37ecb67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &708928961443095355
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8291097734495082477}
+  serializedVersion: 4
+  m_Mass: 50
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 32
+  m_CollisionDetection: 2
 --- !u!1 &8341011395685471030
 GameObject:
   m_ObjectHideFlags: 0
@@ -12213,7 +12241,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 2133083731320997139, guid: cc14d3729a7bcbc43b37f7599394fdd7, type: 3}
 --- !u!1 &8479980311923479080
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,9 +18,10 @@ public class ThirdPersonShooterContorller : MonoBehaviour
     [SerializeField] private ParticleSystem cases;
     [SerializeField] private TrailRenderer trail;
     [SerializeField] private Transform casesSpawn;
-    [SerializeField] private float ammoCount = 16;
+    [SerializeField] private float magezineSize = 16;
     [SerializeField] private HealthBar healthBar;
     [SerializeField] private float _MaxHealth = 100f;
+    private float ammoCount;
     private float _currentHealth;
     private ThirdPersonController thirdPerson;
     private StarterAssetsInputs starterAssetsInputs;
@@ -33,7 +34,6 @@ public class ThirdPersonShooterContorller : MonoBehaviour
         thirdPerson = GetComponent<ThirdPersonController>();
         starterAssetsInputs = GetComponent<StarterAssetsInputs>();
         animator = GetComponent<Animator>();
-        ammoCount = 16;
     }
 
     private void Update()
@@ -59,8 +59,10 @@ public class ThirdPersonShooterContorller : MonoBehaviour
             Vector3 worldAimTarget = mouseWorldPosition;
             worldAimTarget.y = transform.position.y;
             Vector3 aimDirection = (worldAimTarget - transform.position).normalized;
+            Quaternion quaternion = Quaternion.Euler(worldAimTarget.x, aimDirection.y, worldAimTarget.z);
 
             transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * 20f);
+            transform.rotation = Quaternion.Lerp(transform.rotation, quaternion, Time.deltaTime * Time.deltaTime);
         }
         else
         {
@@ -71,6 +73,43 @@ public class ThirdPersonShooterContorller : MonoBehaviour
             isAimed = false;
         }
 
+        /*
+           Vector3 mouse_pos;
+           Transform target = null; //Assign to the object you want to rotate
+           Vector3 object_pos;
+           float angle;
+           mouse_pos = Input.mousePosition;
+           mouse_pos.z = 5.23f; //The distance between the camera and object
+           object_pos = Camera.main.WorldToScreenPoint(target.position);
+           mouse_pos.x = mouse_pos.x - object_pos.x;
+           mouse_pos.y = mouse_pos.y - object_pos.y;
+           angle = Mathf.Atan2(mouse_pos.y, mouse_pos.x) * Mathf.Rad2Deg;
+           target.rotation = Quaternion.Euler(new Vector3(0, -angle + 90, 0)); 
+
+           Vector3 mousePos = Input.mousePosition;
+           mousePos.z = -(transform.position.x - Camera.mainCamera.transform.position.x);
+
+           Vector3 worldPos = Camera.mainCamera.ScreenToWorldPoint(mousePos);
+
+           transform.LookAt(worldPos);
+
+           var mouse_pos : Vector3;
+            var target : Transform; //Assign to the object you want to rotate
+            var object_pos : Vector3;
+            var angle : float;
+
+            function Update ()
+            {
+                mouse_pos = Input.mousePosition;
+	            mouse_pos.z = 5.23; //The distance between the camera and object
+	            object_pos = Camera.main.WorldToScreenPoint(target.position);
+	            mouse_pos.x = mouse_pos.x - object_pos.x;
+	            mouse_pos.y = mouse_pos.y - object_pos.y;
+	            angle = Mathf.Atan2(mouse_pos.y, mouse_pos.x) * Mathf.Rad2Deg;
+	            transform.rotation = Quaternion.Euler(Vector3(0, 0, angle));
+            }
+        */
+
         if (starterAssetsInputs.shoot && isAimed == true && ammoCount > 0)
         {
             Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;       
@@ -79,13 +118,12 @@ public class ThirdPersonShooterContorller : MonoBehaviour
             newAudioManager.PlaySFX(newAudioManager.gunShot[0]);
             ammoCount = ammoCount - 1;
             starterAssetsInputs.shoot = false;
-            animator.SetTrigger("Punch");
         }
 
         if (starterAssetsInputs.reload)
         {
             animator.SetBool("Reload", true);
-            ammoCount = 16;
+            ammoCount = magezineSize;
         }
     }
 

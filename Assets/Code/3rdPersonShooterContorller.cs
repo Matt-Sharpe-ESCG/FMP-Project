@@ -63,6 +63,7 @@ public class ThirdPersonShooterContorller : MonoBehaviour
 
             transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * 20f);
             transform.rotation = Quaternion.Lerp(transform.rotation, quaternion, Time.deltaTime * Time.deltaTime);
+
         }
         else
         {
@@ -118,6 +119,7 @@ public class ThirdPersonShooterContorller : MonoBehaviour
             newAudioManager.PlaySFX(newAudioManager.gunShot[0]);
             ammoCount = ammoCount - 1;
             starterAssetsInputs.shoot = false;
+            
         }
 
         if (starterAssetsInputs.reload)

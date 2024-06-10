@@ -11998,10 +11998,10 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 1.99
   m_BaseOffset: 0
   m_WalkableMask: 1
-  m_ObstacleAvoidanceType: 1
+  m_ObstacleAvoidanceType: 4
 --- !u!114 &4684282845524724905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12030,6 +12030,12 @@ MonoBehaviour:
   animator: {fileID: 7111311167735100949}
   bulletRB: {fileID: 6727405774806609635, guid: ab6b6e7ef7015674db9f3fbb6d118338, type: 3}
   walkPoint: {x: 0, y: 0, z: 0}
+  groundCheckMarker: {fileID: 0}
+  gravity: -9.81
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 0
+  groundDistance: 0.4
   walkPointRange: 50
   timeBetweenAttacks: 1
   sightRange: 50
@@ -12058,9 +12064,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.8199768
-  m_Height: 3.25597
+  m_Height: 2.999918
   m_Direction: 1
-  m_Center: {x: -0.03604126, y: 1.6288891, z: 0}
+  m_Center: {x: -0.03604126, y: 1.6006517, z: 3.4102515e-10}
 --- !u!114 &4077519020902672259
 MonoBehaviour:
   m_ObjectHideFlags: 0

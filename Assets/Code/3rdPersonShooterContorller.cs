@@ -79,6 +79,7 @@ public class ThirdPersonShooterContorller : MonoBehaviour
             newAudioManager.PlaySFX(newAudioManager.gunShot[0]);
             ammoCount = ammoCount - 1;
             starterAssetsInputs.shoot = false;
+            animator.SetTrigger("Punch");
         }
 
         if (starterAssetsInputs.reload)

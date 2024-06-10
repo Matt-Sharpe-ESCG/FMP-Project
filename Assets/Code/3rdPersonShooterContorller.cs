@@ -18,7 +18,7 @@ public class ThirdPersonShooterContorller : MonoBehaviour
     [SerializeField] private ParticleSystem cases;
     [SerializeField] private TrailRenderer trail;
     [SerializeField] private Transform casesSpawn;
-    [SerializeField] private float ammoCount;
+    [SerializeField] private float ammoCount = 16;
     [SerializeField] private HealthBar healthBar;
     [SerializeField] private float _MaxHealth = 100f;
     private float _currentHealth;

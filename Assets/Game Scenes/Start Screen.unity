@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0014785795, g: 0.0013591028, b: 0.0012890887, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1642,7 +1642,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 196, y: 41}
+  m_AnchoredPosition: {x: 196, y: 62}
   m_SizeDelta: {x: 372.7921, y: 100.7501}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &382623067
@@ -1665,8 +1665,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "WSAD / Arrow Keys  = Movement \nSpacebar = Jump\nLeft Mouse Button = Shoot
-    \nRight Mouse Button = Aim\n"
+  m_text: "WSAD / Arrow Keys  = Movement \nLeft Shift = Run\nSpacebar = Jump\nLeft
+    Mouse Button = Shoot \nRight Mouse Button = Aim\nP = Pause Menu (In Game Only)"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
@@ -1693,7 +1693,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20.95
+  m_fontSize: 18
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3765,9 +3765,12 @@ MonoBehaviour:
   clickButton: {fileID: 8300000, guid: 19f89c6e740e7447f9e12a8310d3e973, type: 3}
   spaceAmbience: {fileID: 0}
   lunarAmbience: {fileID: 0}
-  gunShot: {fileID: 0}
+  gunShot:
+  - {fileID: 0}
   FootstepAudioClips: []
   landing: {fileID: 0}
+  mineExplostion: {fileID: 0}
+  reload: {fileID: 0}
 --- !u!4 &1433069846
 Transform:
   m_ObjectHideFlags: 0

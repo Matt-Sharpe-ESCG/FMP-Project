@@ -19,6 +19,8 @@ public class AI_Enemy : MonoBehaviour
     // Float, Bool & Int Variables
     public float detectionRadius = 10f;
     public float bulletSpeed = 50f;
+    public float timeBetweenAttacks;
+    public bool alreadyAttacked;
 
     // Set-Up Health Bar
     private void Awake()
@@ -65,15 +67,8 @@ public class AI_Enemy : MonoBehaviour
     public float groundDistance = 0.4f;
     bool walkPointSet;
     public float walkPointRange;
-    public float timeBetweenAttacks;
-    bool alreadyAttacked;
-    public float sightRange, attackRange;
-    public bool playerInSightRange, playerInAttackRange;
-    
 
 // Movement Code Test 1
-
-
     private void Update()
     {
         float distance = Vector3.Distance(player.transform.position, transform.position);
@@ -84,8 +79,17 @@ public class AI_Enemy : MonoBehaviour
             if (distance <= agent.stoppingDistance)
             {
                 AttackPlayer();
-           
+                FaceTarget();
             }
+        }
+
+        if (Vector3.Magnitude(transform.position) > 1f)
+        {
+            animator.SetBool("move", true);
+        }
+        else
+        {
+            animator.SetBool("move", false);
         }
     }
     void FaceTarget()

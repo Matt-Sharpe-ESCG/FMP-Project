@@ -63,7 +63,7 @@ public class ThirdPersonShooterContorller : MonoBehaviour
 
             transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * 20f);
             transform.rotation = Quaternion.Lerp(transform.rotation, quaternion, Time.deltaTime * Time.deltaTime);
-
+            transform.localRotation = Quaternion.Euler(5, transform.rotation.y, transform.rotation.z);
         }
         else
         {

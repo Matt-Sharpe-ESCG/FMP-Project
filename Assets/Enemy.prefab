@@ -1769,10 +1769,10 @@ Animator:
   m_Controller: {fileID: 9100000, guid: b95cf101418037040a76dd20053eb453, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_AnimatePhysics: 1
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -12031,10 +12031,10 @@ MonoBehaviour:
   bulletRB: {fileID: 6727405774806609635, guid: ab6b6e7ef7015674db9f3fbb6d118338, type: 3}
   walkPoint: {x: 0, y: 0, z: 0}
   groundCheckMarker: {fileID: 0}
-  gravity: -9.81
+  gravity: -4.405
   groundMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 65
   groundDistance: 0.4
   walkPointRange: 50
   timeBetweenAttacks: 1

@@ -11,6 +11,8 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField] private GameObject crosshair, healthbar, pauseMenuUI;
     public OtherAudioManager newAudioManager;
     public TransitionManager transitionManager;
+    public GameObject gameOverUI;
+
     private void Start()
     {
         if (PlayerPrefs.HasKey("masterVolume"))
@@ -112,5 +114,13 @@ public class OptionsMenu : MonoBehaviour
         pauseMenuUI.SetActive(true);
         healthbar.SetActive(false);
         crosshair.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (GameObject.FindGameObjectWithTag("Enemy") == false)
+        {
+            gameOverUI.SetActive(true);
+        }
     }
 }

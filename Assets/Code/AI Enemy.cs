@@ -5,20 +5,61 @@ using UnityEngine.AI;
 
 public class AI_Enemy : MonoBehaviour
 {
+    // Health Bar refrences
     [SerializeField] private float _MaxHealth = 50f;
-    private float _currentHealth;
-    public NavMeshAgent agent;
-    public Transform player;
-    public LayerMask whatIsGround, whatIsPlayer;
+    [SerializeField] private float _currentHealth;
+    [SerializeField] private HealthBar healthBar;
+
+    // Game Scene References
     public OtherAudioManager otherAudioManager;
+    public NavMeshAgent agent;
+    public Animator animator;
+    public Transform player;
+
+    // Float, Bool & Int Variables
+    public float detectionRadius = 10f;
+    public float bulletSpeed = 50f;
+
+    // Set-Up Health Bar
+    private void Awake()
+    {
+        _currentHealth = _MaxHealth;
+        healthBar.UpdateHealthBar(_MaxHealth, _currentHealth);
+    }
+
+    // Gun and Bullet References
+    public GameObject muzzleFlash;
     public GameObject bullet;
     public Transform firePoint;
-    public GameObject muzzleFlash;
-    public Animator animator;
     public Rigidbody bulletRB;
+
+    // Game Object References
+    private void Start()
+    {
+        player = GameObject.FindWithTag("Player").transform;
+        agent = GetComponent<NavMeshAgent>();
+    }
+
+
+    // Health Connections & Death
+    public void TakeDamage(int damage)
+    {
+        _currentHealth -= damage;
+        healthBar.UpdateHealthBar(_MaxHealth, _currentHealth);
+        if (_currentHealth <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
+    }
+    private void DestroyEnemy()
+    {
+        Destroy(gameObject);
+    }
+
+
+    //public NavMeshAgent agent;
+
+
+    public LayerMask whatIsGround, whatIsPlayer;
+  
     public Vector3 walkPoint;
-    public Transform groundCheckMarker;
-    public float gravity = -9.81f;
     public LayerMask groundMask;
     Vector3 velocity;
     public float groundDistance = 0.4f;
@@ -28,71 +69,100 @@ public class AI_Enemy : MonoBehaviour
     bool alreadyAttacked;
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
-    public float bulletSpeed;
+    
 
-    [SerializeField] private HealthBar healthBar;
+// Movement Code Test 1
 
-    private void Awake()
-    {
-        player = GameObject.FindWithTag("Player").transform;
-        agent = GetComponent<NavMeshAgent>();
-        _currentHealth = _MaxHealth;
-
-        healthBar.UpdateHealthBar(_MaxHealth, _currentHealth);
-    }
 
     private void Update()
     {
-        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+        float distance = Vector3.Distance(player.transform.position, transform.position);
 
-        if (!playerInSightRange && !playerInAttackRange) Patrolling();
-        if (playerInSightRange && !playerInAttackRange) ChasePlayer();
-        if (playerInSightRange && playerInAttackRange) AttackPlayer();
-
-        if (Vector3.Magnitude(transform.position) > 0f)
+        if (distance < detectionRadius)
         {
-            animator.SetBool("move", true);
+            agent.SetDestination(player.position);
+            if (distance <= agent.stoppingDistance)
+            {
+                AttackPlayer();
+           
+            }
         }
-        else
+    }
+    void FaceTarget()
+    {
+        Vector3 direction = (player.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+    }
+
+    // Visualise Detection Radius
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, detectionRadius);
+    }
+
+// Current System (Not Functional)
+    /*
+        private void Awake()
         {
-            animator.SetBool("move", false);
+            player = GameObject.FindWithTag("Player").transform;
+            agent = GetComponent<NavMeshAgent>();
+            
         }
 
-        animator.SetBool("Hit", false);
-    }
+        private void Update()
+        {
+            playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+            playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-    private void Patrolling()
-    {
-        if (!walkPointSet) SearchWalkPoint();
+            if (!playerInSightRange && !playerInAttackRange) Patrolling();
+            if (playerInSightRange && !playerInAttackRange) ChasePlayer();
+            if (playerInSightRange && playerInAttackRange) AttackPlayer();
 
-        if (walkPointSet)
-            agent.SetDestination(walkPoint);
+            if (Vector3.Magnitude(transform.position) > 1f)
+            {
+                animator.SetBool("move", true);
+            }
+            else
+            {
+                animator.SetBool("move", false);
+            }
 
-        Vector3 distanceToWalkPoint = transform.position - walkPoint;
+            animator.SetBool("Hit", false);
+        }
 
-        //Walkpoint reached
-        if (distanceToWalkPoint.magnitude < 1f)
-            walkPointSet = false;
-    }
-    private void SearchWalkPoint()
-    {
-        //Calculate random point in range
-        float randomZ = Random.Range(-walkPointRange, walkPointRange);
-        float randomX = Random.Range(-walkPointRange, walkPointRange);
+        private void Patrolling()
+        {
+            if (!walkPointSet) SearchWalkPoint();
 
-        walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
-        transform.rotation = Quaternion.LookRotation(walkPoint);
+            if (walkPointSet)
+                agent.SetDestination(walkPoint);
 
-        if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround))
-            walkPointSet = true;
-    }
+            Vector3 distanceToWalkPoint = transform.position - walkPoint;
 
-    private void ChasePlayer()
-    {
-        agent.SetDestination(player.position);
-    }
+            //Walkpoint reached
+            if (distanceToWalkPoint.magnitude < 1f)
+                walkPointSet = false;
+        }
+        private void SearchWalkPoint()
+        {
+            //Calculate random point in range
+            float randomZ = Random.Range(-walkPointRange, walkPointRange);
+            float randomX = Random.Range(-walkPointRange, walkPointRange);
 
+            walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
+            transform.rotation = Quaternion.LookRotation(walkPoint);
+
+            if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround))
+                walkPointSet = true;
+        }
+
+        private void ChasePlayer()
+        {
+            agent.SetDestination(player.position);
+        }
+    */
     private void AttackPlayer()
     {
         //Make sure enemy doesn't move
@@ -123,16 +193,7 @@ public class AI_Enemy : MonoBehaviour
         alreadyAttacked = false;
     }
 
-    public void TakeDamage(int damage)
-    {
-        _currentHealth -= damage;
-        healthBar.UpdateHealthBar(_MaxHealth, _currentHealth);
-        if (_currentHealth <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
-    }
-    private void DestroyEnemy()
-    {
-        Destroy(gameObject);
-    }
+  
 
     void Fire()
     {
@@ -147,5 +208,9 @@ public class AI_Enemy : MonoBehaviour
             TakeDamage(15);
         }
     }
+
+
+
+    
 }
 
